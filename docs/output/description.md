@@ -14,7 +14,7 @@ If you ran GeneMark-ET or -EP+, each CDS includes an **anchored** status in the 
 * `anchored "1_0"` or `anchored "0_1"`: One of the exon boundaries is supported by external evidence.
 * If the feature is missing, none of the boundaries is supported by external evidence, the prediction is purely computational.
 
-This information can be used to [select a reliable subset of predicte genes](reliable_subset.md).
+This information can be used to [select a reliable subset of predicted genes](reliable_subset.md).
 
 ## Predicted protein and gene sequences
 

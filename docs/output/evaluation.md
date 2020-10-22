@@ -8,20 +8,26 @@ To get summary statistics about the predicted gene set and trained model, run th
 ./predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
 ```
 
+!> The script is not called in the course of a standard GeneMark run because it depends on additional Python dependencies. The following [Python modules](https://docs.python.org/3/installing/index.html) are required: [`numpy`](https://numpy.org/), [`pandas`](https://pandas.pydata.org/), [`matplotlib`](https://matplotlib.org/), [`logomaker`](https://logomaker.readthedocs.io/en/latest/). All modules can be installed with pip: `pip3 install numpy pandas matplotlib logomaker`
+
 The report is saved in the specified `report.pdf` file. The report includes:
 
 * Number of predicted genes
     * Number of single-exon and multi-exon genes
-* Average number of exons per transcript
-* Histograms of exon, gene, and intron lengths
-* Fraction of exons and genes supported by external evidence (see the [output description](output/description.md))
-* Estimated splice site motifs
+* The average number of exons per gene
+* The fraction of genes supported by external evidence (see the [output description](output/description.md))
+* Number of complete and partial predictions
+* Histograms of exon, gene, intron, and intergenic lengths
+    * Exons are split into 4 categories: initial, terminal, terminal, and single.
+* Distribution of the number of exons per gene
 * Estimated start and stop motifs
+* Estimated splice site motifs
 * If the `--fungus` option was used during GeneMark run, the report also includes
-    * Estimated branch motif
+    * Estimated branch point motif
     * Estimated branch point spacer duration
 
-?> An example report can be [viewed here]() (**TODO**)
+> [!TIP]
+> See example reports generated for GeneMark-EP+ predictions on [**D. melanogaster**](output/reports/dmel.pdf ':ignore') and [**S. pombe**](output/reports/spombe.pdf ':ignore').
 
 ## Comparing against a reference
 
