@@ -15,3 +15,7 @@
     * [Output description](output/description.md)
     * [Output evaluation](output/evaluation.md)
     * [Selection of a reliable gene set](output/reliable_subset.md)
+* Examples
+    * [Annotation of a novel genome](examples/novel_genome.md)
+    * [Annotation of a fungal genome](examples/fungal_genome.md)
+        * [Annotation of a yeast genome](examples/yeast_genome.md)
