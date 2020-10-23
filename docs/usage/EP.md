@@ -25,7 +25,7 @@ ProtHint is distributed as part of the GeneMark-ES suite (inside `ProtHint` fold
 To run ProtHint, use the following command:
 
 ```bash
-prothint.py genome.fasta.masked species_excluded.fa  --workdir output_folder
+prothint.py genome.fasta.masked proteins.fasta  --workdir output_folder
 ```
 
 * ProtHint runs GeneMark-ES to generate gene seeds. If you already have a GeneMark-ES output, you can supply it to ProtHint with `--geneSeeds ES/genemark.gtf` option.
