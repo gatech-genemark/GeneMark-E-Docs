@@ -96,7 +96,7 @@ RepeatModeler -database genome -LTRStruct -pa 8
 Use the repeat library to soft-mask repeats with [RepeatMasker](http://www.repeatmasker.org/):
 
 ```bash
-RepeatMasker -lib genome-families.fa -xsmall genome.fasta
+RepeatMasker -lib genome-families.fa -xsmall genome.fasta -pa 16
 ```
 
 The masked genome will saved to  `genome.fasta.masked` file.
@@ -246,7 +246,7 @@ Without a reference annotation, we can use [BUSCO](evaluation?id=busco-evaluatio
 First, we need to select the closest BUSCO lineage. To list available lineage, use:
 
 ```bash
-python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets
+python3 busco --list-datasets
 ```
 
 `brassicales_odb10` is the closest available set.
@@ -269,9 +269,7 @@ Visualize the BUSCO result:
 python3 generate_plot.py -wd EP_plus
 ```
 
-LINK
-
-The result shows that...
+TODO: BUSCO figure and its description
 
 ## Selection of a reliable gene set
 

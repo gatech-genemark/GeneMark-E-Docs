@@ -60,7 +60,7 @@ The compare script supports comparisons on many different levels, e.g. `--trans`
 To assess the completeness of a gene set with BUSCO, you first need to select a lineage dataset corresponding to your species. The list of available BUSCO lineages can be displayed with the following command:
 
 ```bash
-python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets
+python3 busco --list-datasets
 ```
 
 BUSCO score is then computed for the [predicted protein set](output/description?id=predicted-protein-and-gene-sequences) as follows:

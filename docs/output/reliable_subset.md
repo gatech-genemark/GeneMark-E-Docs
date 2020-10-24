@@ -17,7 +17,7 @@ The script splits GeneMark prediction into three categories:
 * **Genes with any support**: At least one intron, start or stop codon of a predicted gene is found.
 * **Genes no support**: None of the gene features is supported by external evidence. This is the least reliable set.
 
-See [one of the examples](examples/novel_genome?id=selection-of-a-reliable-gene-set) for prediction accuracy differences between these sets.
+See examples of [A. thaliana](examples/novel_genome?id=selection-of-a-reliable-gene-set) and [S. pombe](examples/fungal_genome?id=selection-of-a-reliable-gene-set) for prediction accuracy differences between these sets.
 
 !> Genes with no external support are not necessarily false positives. In GeneMark-ET, they can be lowly expressed or single-exon genes. In GeneMark-EP+, many correct but unsupported genes can be present if the set of reference proteins is taxonomically distant.
 
