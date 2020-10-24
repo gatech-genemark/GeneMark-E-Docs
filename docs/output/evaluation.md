@@ -50,9 +50,29 @@ The output will look as follows:
 
 ?> In this case with reference annotation used in comparison, the first `%match` (71.91) represents prediction **sensitivity** and the value in the second row (77.86) is equivalent to prediction **specificity**.
 
-The compare script supports comparisons on many different levels, e.g. `--trans` to compare exact transcript matches, `--intron` to compare exact intron matches, etc. Run the script without any arguments to see the full list of avaliable options.
+The compare script supports comparisons on many different levels, e.g. `--trans` to compare exact transcript matches, `--intron` to compare exact intron matches, etc. Run the script without any arguments to see the full list of available options.
 
 
 ## BUSCO evaluation
 
-?> TODO
+[BUSCO](https://busco.ezlab.org/) is a tool to asses annotation completeness by assessing the presence of universal single-copy genes. Please refer to [BUSCO download page](https://busco.ezlab.org/busco_userguide.html) for installation instructions.
+
+To assess the completeness of a gene set with BUSCO, you first need to select lineage dataset corresponding to your species. The list of available BUSCO lineages can be displayed with the following command:
+
+```bash
+python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets
+```
+
+BUSCO score is then computed for the [predicted protein set](output/description?id=predicted-protein-and-gene-sequences) as follows:
+
+```bash
+python3 busco -m protein -i prot_seq.faa -o busco_output -l LINEAGE --cpu 8
+```
+
+A plot which visualizes the BUSCO result can be generated with the following command:
+
+```bash
+python3 generate_plot.py -wd busco_output
+```
+
+See [one of the examples](examples/novel_genome?id=busco-evaluation) for such visualization.
