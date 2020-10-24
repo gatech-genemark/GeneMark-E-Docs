@@ -99,7 +99,7 @@ Use the repeat library to soft-mask repeats with [RepeatMasker](http://www.repea
 RepeatMasker -lib genome-families.fa -xsmall genome.fasta -pa 16
 ```
 
-The masked genome will saved to  `genome.fasta.masked` file.
+The masked genome will be saved to  `genome.fasta.masked` file.
 
 ?> See the [section on masking in the usage page](usage/general?id=repeat-masking) for more details about repeat masking.
 
@@ -146,7 +146,7 @@ gmes_petap.pl --seq genome.fasta.masked  --EP prothint/prothint.gff --evidence p
 ```
 
 > [!INFO]
-> In the above commands, we used two different ProtHint outputs. `prothint.gff` contains all ProtHint predictions and all of these hints are used by GeneMark-EP+ to improve model training. `evidence.gff` contains a high-confidence subset of `prothint.gff`, these hints are enforced in the final GeneMark-EP+ prediction. Hints in `evidence.gff` pass stringent filtering criteria and [generally have > 95% specificity](examples/novel_genome?id=evaluation-of-prothint-hints).
+> In the above commands, we used two different ProtHint outputs. `prothint.gff` contains all ProtHint predictions and all of these hints are used by GeneMark-EP+ to improve model training. `evidence.gff` contains a high-confidence subset of `prothint.gff`, these hints are enforced in the final GeneMark-EP+ prediction. Hints in `evidence.gff` pass stringent filtering criteria and [generally have > 95% specificity](examples/novel_genome?id=evaluation-of-prothint-protein-hints).
 
 ?> The runtime of GeneMark-EP+ is similar to that of GeneMark-ES, about X minutes on an 8-CPU machine.
 
@@ -173,22 +173,22 @@ compare_intervals_exact.pl --f1 annotation.gtf --f2  ES/genemark.gtf --gene
 The output looks as follows:
 
 ```bash
-27444   15310   12134   55.79   annot.gtf
-29015   15310   13705   52.77   ES/genemark.gtf
+27559   15176   12383   55.07   annotation.gtf
+27869   15176   12693   54.45   ES/genemark.gtf
 ```
 
-**15,310** of genes in annotation (**55.79%** sensitivity) were exactly predicted. At the same time, **13,705** (**52.77%** specificity) predicted genes were not exactly correct.
+**15,176** of genes in annotation (**55.07%** sensitivity) were exactly predicted. At the same time, **12,693** (**54.45%** specificity) predicted genes were not exactly correct.
 
 Prediction is also often evaluated on the level of exact exon matches:
 
 ```bash
 compare_intervals_exact.pl --f1 annotation.gtf --f2  ES/genemark.gtf --cds --verbose
 
-156842  120999  35843   77.15   ../annot/annot.gtf
-155699  120999  34700   77.71   genemark.gtf
+156987  120442  36545   76.72   annotation.gtf
+151891  120442  31449   79.30   ES/genemark.gtf
 ```
 
- **120,999** of exons in annotation (**77.2%** sensitivity) were exactly predicted. At the same time, **34,700** (**77.7%** specificity) predicted exons were wrong.
+ **120,442** of exons in annotation (**76.72%** sensitivity) were exactly predicted. At the same time, **31,449** (**79.30%** specificity) predicted exons were wrong.
 
 The result of GeneMark-EP+, guided by cross-species proteins, can be evaluated with the same commands:
 
@@ -201,15 +201,15 @@ The results are summarized in the table below:
 
 | Method                             | GeneMark-ES     | GeneMark-EP+           |
 |------------------------------------|:----------------|:-----------------------|
-| Gene Sensitivity (True Positives)  | 55.8 (15,310)   | 73.2  (20,085) |
-| Gene Specificity (False Positives) | 52.8 (13,705)   | 67.4   (9,720) |
-| Exon Sensitivity (True Positives)  | 77.2 (120,999)  | 81.6 (128,029) |
-| Exon Specificity (False Positives) | 77.7 (34,700)   | 83.0  (26,253) |
+| Gene Sensitivity (True Positives)  | 55.1 (15,176)   | 72.3 (19,910)          |
+| Gene Specificity (False Positives) | 54.5 (12,693)   | 69.5 (8,755)           |
+| Exon Sensitivity (True Positives)  | 76.7 (120,442)  | 81.2 (127,452)         |
+| Exon Specificity (False Positives) | 79.3 (31,449)   | 84.7 (22,956)          |
 
 
-About \~5,000 more annotated genes were exactly predicted by GeneMark-EP+ (17.4% percentage points increase in sensitivity). Conversely, \~4000 false positive genes are not present in the GeneMark-EP+ result (14.6% percentage points increase in specificity).
+About \~5,000 more annotated genes were exactly predicted by GeneMark-EP+ (17.2 percentage points increase in sensitivity). Conversely, \~4000 false positive genes are not present in the GeneMark-EP+ result (15 percentage points increase in specificity).
 
-?> **Using publicly available cross-species proteins significantly improved the predictions.**
+?> **Using publicly available cross-species proteins significantly improved the prediction.**
 
 #### Evaluation of ProtHint protein hints
 
@@ -220,12 +220,12 @@ compare_intervals_exact.pl --f1 annotation.gtf --f2  prothint.gtf --intron --no_
 compare_intervals_exact.pl --f1 annotation.gtf --f2  evidence.gtf --intron --no_phase
 ```
 
-| ProtHint                             | All introns     | High-Confidence           |
-|------------------------------------|:----------------:|:-----------------------:|
-| Intron Sensitivity  |  87.9  | 84.3 |
-| Intron Specificity  |  85.0  | **96.9** |
+| ProtHint                      | All introns    | High-Confidence     |
+|-------------------------------|:--------------:|:-------------------:|
+| Intron Sensitivity            |  87.6          | 84.1                |                  
+| Intron Specificity            |  86.6          | **97.5**            |
 
-We can see that ProtHint predicted a significant portion of all annotated introns (87.9%). Furthermore, the specificity of introns predicted in the high-confidence group is high (**96.9%** of predicted introns are correct).
+We can see that ProtHint predicted a significant portion of all annotated introns (87.6%). Furthermore, the specificity of introns predicted in the high-confidence group is high (**97.5%** of predicted introns are correct).
 
 ### Annotation Report
 
@@ -269,7 +269,11 @@ Visualize the BUSCO result:
 python3 generate_plot.py -wd EP_plus
 ```
 
-TODO: BUSCO figure and its description
+<br>
+
+![A_thaliana_busco](busco/athal.png ':size=700') 
+
+The BUSCO result shows that 4534 out of 4596 (98.7%) expected BUSCO genes were completely found in the prediction. 9 genes were found partially and 53 (1.1%) were missing.
 
 ## Selection of a reliable gene set
 
@@ -283,14 +287,14 @@ Using the same comparison script [as before](examples/novel_genome?id=comparison
 
 | GeneMark-EP+ Predictions           | All predictions | Any support            | Full support            | No support            |
 |------------------------------------|:----------------|:-----------------------|:------------------------|:----------------------|
-| Gene Sensitivity (True Positives)  | 73.2  (20,085)  | 72.0 (19,756)          | 67.3 (18,477)           | 1.2 (329)             |
-| Gene Specificity (False Positives) | 67.4   (9,720)  | 75.3 (6,476)           | 91.7 (1,680)            | 9.2 (3,244)           |
-| Exon Sensitivity (True Positives)  | 81.6 (128,029)  | 80.6 (126,440)         | 68.8 (107,916)          | 1.0 (1,589)           |
-| Exon Specificity (False Positives) | 83.0  (26,253)  | 88.0 (17,312)          | 97.9 (2,319)            | 15.1 (8,941)         |
+| Gene Sensitivity (True Positives)  | 72.3 (19,910)   | 71.1 (19,596)          | 66.6 (18,357)           | 1.1  (314)          |
+| Gene Specificity (False Positives) | 69.5 (8,755)    | 76.6 (6,002)           | 91.8 (1,630)            | 10.2 (2,753)          |
+| Exon Sensitivity (True Positives)  | 81.2 (127,452)  | 80.2 (125,846)         | 68.5 (107,475)          | 1.0  (1,606)          |
+| Exon Specificity (False Positives) | 84.7 (22,956)   | 89.3 (15,087)          | 98.0 (2,191)            | 17.0 (7,869)          |
 
 
-The full prediction set contains **20,085** genes which exactly match the annotation. At the same time, there are **9,720** incorrectly predicted gene structures:
-* By keeping genes with any external support, we can remove **3,244** false predictions at the cost of losing **329** correctly predicted genes.
-* In a more conservative set where only genes with full external support are kept, **8,040** false predictions are removed at the cost of losing **1,607** correct genes.
+The full prediction set contains **19,910** genes which exactly match the annotation. At the same time, there are **8,755** incorrectly predicted gene structures:
+* By keeping genes with any external support, we can remove **2,753** false predictions at the cost of losing **314** correctly predicted genes.
+* In a more conservative set where only genes with full external support are kept, **7,125** false predictions are removed at the cost of losing **1,553** correct genes.
 
-Similar trade-offs can be observed on the exon level. For example, (97.9%) exons in the set of fully supported genes are correct. This filtering comes at the price of losing \~16% of correctly predicted exons.
+Similar trade-offs can be observed on the exon level. For example, **98.0%** exons in the set of fully supported genes are correct. This filtering comes at the price of losing **\~16%** of correctly predicted exons.
