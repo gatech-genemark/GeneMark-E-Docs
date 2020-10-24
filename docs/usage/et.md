@@ -1,6 +1,6 @@
 # GeneMark-ET
 
-> TODO: Some description
+GeneMark-ET [[1](https://academic.oup.com/nar/article/42/15/e119/2434516)] is a semi-supervised **self-training** algorithm that identifies protein coding genes in eukaryotic genomes. Compared to fully unsupervised GeneMark-ES, GeneMark-ET integrates information on mapped RNA-Seq reads to improve its training.
 
 ## Running GeneMark-ET
 
@@ -21,6 +21,7 @@ This adjustment can be useful if:
 * You have low RNA-Seq coverage and want to add more introns into the initial model estimation (by decreasing the `et_score` threshold)
 
 For example, to use all introns with score higher than 4 during initial parameter estimation, use:
+
 ```bash
 gmes_petap.pl --seq  genome.fasta.masked --ET rna_introns.gff --soft_mask auto --cores 8 --et_score 4
 ```

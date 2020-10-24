@@ -1,6 +1,6 @@
 # GeneMark-EP+
 
-> TODO: Some description
+GeneMark-EP+ [[1](https://academic.oup.com/nargab/article/2/2/lqaa026/5836691)] is a semi-supervised **self-training** algorithm that identifies protein coding genes in eukaryotic genomes. Compared to fully unsupervised GeneMark-ES, GeneMark-EP+ uses homologous protein sequences of any evolutionary distance to improve both training and predictions.
 
 ## Running GeneMark-EP+ with automatic protein hint generation
 
