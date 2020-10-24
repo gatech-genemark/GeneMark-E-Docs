@@ -1,6 +1,6 @@
 # Installation Verification
 
-Check the presence of all required modules and the validity of gm_key:
+Check if all the required models are installed and the validity of gm_key:
 
 ```bash
 ./check_install.bash
@@ -15,7 +15,7 @@ mkdir test; cd test
     --verbose --cores=8 --max_intergenic 10000
 ```
 
-?> This examples tests the execution of the algorithm in the **EP+** mode, with integration of protein evidence. See the `GeneMark-E-tests` folder for other tests.
+?> This example tests the execution of the algorithm in the **EP+** mode, with the integration of protein evidence. See the `GeneMark-E-tests` folder for other tests.
 
 The expected runtime of this example is **~7 minutes**.
 

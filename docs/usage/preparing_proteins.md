@@ -1,8 +1,8 @@
 # Preparation of Protein Evidence
 
-We recommend to use a relevant section of [OrthodDB](https://www.orthodb.org/?) as a general source of protein evidence for GeneMark-EP+.
+We recommend using a relevant section of [OrthodDB](https://www.orthodb.org/?) as a general source of protein evidence for GeneMark-EP+.
 
-!> **Different protein sources:** GeneMark-EP+ works best with a database of protein families, i.e. many representatives of each protein family must be present in the database. Therefore if you want to add additional proteins of closely related species, we recommend to add them to the OrthoDB fasta file.
+!> **Different protein sources:** GeneMark-EP+ works best with a database of protein families, i.e. many representatives of each protein family must be present in the database. Therefore if you want to add additional proteins of closely related species, we recommend adding them to the OrthoDB fasta file.
 
 For example, if your genome of interest is an insect, download arthropoda proteins:
 

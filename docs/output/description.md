@@ -4,7 +4,7 @@ All output files are located in the folder from which GeneMark-E* was executed.
 
 ## Gene coordinates
 
-Predicted gene coordinates are outputted to `genemark.gtf` which looks as follows:
+Predicted gene coordinates are saved to `genemark.gtf` which looks as follows:
 
 ```
 Chr1    GeneMark.hmm    exon          14412408    14412758   0   +   .   gene_id "1_g"; transcript_id "1_t";
@@ -32,7 +32,7 @@ This information can be used to [select a reliable subset of predicted genes](re
 
 ## Predicted protein and gene sequences
 
-The following script (inlucded in the GeneMark-ES suite) can be used to get protein and nucleotide sequences of predicted genes:
+The following script (included in the GeneMark-ES suite) can be used to get protein and nucleotide sequences of predicted genes:
 
 ```bash
 get_sequence_from_GTF.pl genemark.gtf genome.fasta

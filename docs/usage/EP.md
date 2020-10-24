@@ -1,6 +1,6 @@
 # GeneMark-EP+
 
-GeneMark-EP+ [[1](https://academic.oup.com/nargab/article/2/2/lqaa026/5836691)] is a semi-supervised **self-training** algorithm that identifies protein coding genes in eukaryotic genomes. Compared to fully unsupervised GeneMark-ES, GeneMark-EP+ uses homologous protein sequences of any evolutionary distance to improve both training and predictions.
+GeneMark-EP+ [[1](https://academic.oup.com/nargab/article/2/2/lqaa026/5836691)] is a semi-supervised **self-training** algorithm that identifies protein-coding genes in eukaryotic genomes. Compared to fully unsupervised GeneMark-ES, GeneMark-EP+ uses homologous protein sequences of any evolutionary distance to improve both training and predictions.
 
 ## Running GeneMark-EP+ with automatic protein hint generation
 
@@ -29,7 +29,7 @@ prothint.py genome.fasta.masked proteins.fasta  --workdir output_folder
 ```
 
 * ProtHint runs GeneMark-ES to generate gene seeds. If you already have a GeneMark-ES output, you can supply it to ProtHint with `--geneSeeds ES/genemark.gtf` option.
-* Number of parallel CPU threads can be controlled by `--threads N` option. Contrary to GeneMark-E\*, ProtHint uses all available threads by default.
+* The number of parallel CPU threads can be controlled by `--threads N` option. Contrary to GeneMark-E\*, ProtHint uses all available threads by default.
 * To display a full list of options offered by ProtHint, run `prothint.py --help`
 
 ### Using ProtHint output in GeneMark-EP+

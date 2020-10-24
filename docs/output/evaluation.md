@@ -55,9 +55,9 @@ The compare script supports comparisons on many different levels, e.g. `--trans`
 
 ## BUSCO evaluation
 
-[BUSCO](https://busco.ezlab.org/) is a tool to asses annotation completeness by assessing the presence of universal single-copy genes. Please refer to [BUSCO download page](https://busco.ezlab.org/busco_userguide.html) for installation instructions.
+[BUSCO](https://busco.ezlab.org/) is a tool to assess annotation completeness by assessing the presence of universal single-copy genes. Please refer to [BUSCO download page](https://busco.ezlab.org/busco_userguide.html) for installation instructions.
 
-To assess the completeness of a gene set with BUSCO, you first need to select lineage dataset corresponding to your species. The list of available BUSCO lineages can be displayed with the following command:
+To assess the completeness of a gene set with BUSCO, you first need to select a lineage dataset corresponding to your species. The list of available BUSCO lineages can be displayed with the following command:
 
 ```bash
 python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets

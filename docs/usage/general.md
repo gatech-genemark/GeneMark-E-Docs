@@ -26,7 +26,7 @@ RepeatMasker -lib genome-families.fa -xsmall genome.fasta
 
 The resulting soft-masked genome is located in `genome.fasta.masked` file.
 
-!> **Importance of soft-masking:** The use of soft-masking (`-xsmall` option), i.e. repeat regions are represented by lower-case letter, leads to better results than hard-masking, i.e. replacing repeats by the letter **N**. Soft-masking enables GeneMark to ignore short repeats located inside protein-coding genes. The maximum length of ignored repeats can be controlled by `--soft_mask N` parameter or automatically estimated by using `--soft_mask auto` option.
+!> **Importance of soft-masking:** The use of soft-masking (`-xsmall` option), i.e. repeat regions are represented by lower-case letters, leads to better results than hard-masking, i.e. replacing repeats with the letter **N**. Soft-masking enables GeneMark to ignore short repeats located inside protein-coding genes. The maximum length of ignored repeats can be controlled by `--soft_mask N` parameter or automatically estimated by using `--soft_mask auto` option.
 
 ## Fungal mode
 

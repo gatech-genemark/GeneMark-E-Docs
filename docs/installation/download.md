@@ -4,7 +4,7 @@ Visit [exon.gatech.edu](http://exon.gatech.edu/). Click "Programs" in the sideba
 
 ![Link_Image](img/link.png)
 
-?> The downloads page is directly accessible at http://exon.gatech.edu/GeneMark/license_download.cgi.
+?> The "Downloads page" is directly accessible at http://exon.gatech.edu/GeneMark/license_download.cgi.
 
 
 Select `GeneMark-ES/ET/EP ver * - LINUX 64`, fill out the download form and agree to the license terms.
