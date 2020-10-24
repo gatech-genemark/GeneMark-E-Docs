@@ -128,15 +128,6 @@ To compare GeneMark-ES and GeneMark-EP+ predictions, we will use the same proced
 
 The results are summarized in the table below:
 
-5120    4285    835     83.69   ../annot/annot.gtf
-5081    4285    796     84.33   genemark.gtf
-
-
-
-10183   9070    1113    89.07   ../annot/annot.gtf
-10225   9070    1155    88.70   genemark.gtf
-
-
 | Method                             | GeneMark-ES     | GeneMark-EP+           |
 |------------------------------------|:----------------|:-----------------------|
 | Gene Sensitivity (True Positives)  | 82.6 (4,227)    | 83.7 (4,285)          |
@@ -147,11 +138,11 @@ The results are summarized in the table below:
 
 Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the difference in accuracy between GeneMark-ES and GeneMark-EP+ is quite small. The main reason for this difference is that the prediction results of fungal GeneMark-ES are quite accurate and thus difficult to improve.
 
-!!Second reason - low protein coverage!! (compared to plant for instance) NO CLOSE relatives.
-
 #### Evaluation of ProtHint protein hints
 
-Simlar to [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the accuracy of protein hints mapped by ProtHint is high, especially the specificity of the set of high-confidence introns:
+Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the genome coverage of protein hints (60%) is lower: After removing proteins of species within the same genus, the closest relatives in the reference proteins set were from a **different taxonomic class**. Note that the specificity of high-confidence hint (**98.8%**) is not negatively affected by the remoteness of input proteins.
+
+
 
 | ProtHint                             | All introns     | High-Confidence           |
 |------------------------------------|:----------------:|:-----------------------:|
@@ -167,19 +158,11 @@ Without a reference annotation, the prediction has to be evaluated on its own. T
 ./predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
 ```
 
+The resulting report [is saved here](output/reports/spombe.pdf ':ignore').
 
-REPLACE THE NEW S POMBE HERE!!
+!> Notice the additional statistics about branch point in this report (not present in the [report of A. thaliana](output/reports/athal.pdf ':ignore')). Branch point model is one of the reasons why the fungal predictions are very accurate even in the GeneMark-ES mode.
 
-
-The resulting report [is saved here](output/reports/athal.pdf ':ignore').
-
-!> Notice the additional statistics about branch point in this report (not present in the [report of A. thaliana](output/reports/athal.pdf ':ignore')). Branch point model is one of the reasons why the fungal predictions are accurate even in the GeneMark-ES mode.
-
-!
-
-
-
-Generally, users have some expectations about the expected number of genes, distribution of gene lengths, ratio of single-exon genes, etc. This report helps to quickly check whether these expectations were met.
+Generally, users have some expectations about the number of genes, distribution of gene lengths, ratio of single-exon genes, etc. This report helps to quickly check whether these expectations were met.
 
 ### BUSCO Evaluation
 
@@ -188,10 +171,10 @@ Without a reference annotation, we can use [BUSCO](evaluation?id=busco-evaluatio
 First, we need to select the closest BUSCO lineage. To list available lineage, use:
 
 ```bash
-python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets
+python3 busco --list-datasets
 ```
 
-`!!!!` is the closest available set.
+`ascomycota_odb10` is the closest available set.
 
 Next, we need to translate the predicted genes to proteins:
 
@@ -202,7 +185,7 @@ get_sequence_from_GTF.pl genemark.gtf genome.fasta
 To run BUSCO, use:
 
 ```bash
-python3 busco -m protein -i prot_seq.faa -o EP_plus -l brassicales_odb10 --cpu 8
+python3 busco -m protein -i prot_seq.faa -o EP_plus -l ascomycota_odb10 --cpu 8
 ```
 
 Visualize the BUSCO result:
@@ -210,10 +193,11 @@ Visualize the BUSCO result:
 ```bash
 python3 generate_plot.py -wd EP_plus
 ```
+<br>
 
-LINK
+![S_pombe_busco](busco/spombe.png ':size=700') 
 
-The result shows that...
+!> **TODO** COMMENT ON THIS. LIMITATION OF BUSCO WITH FUNGI!
 
 ## Selection of a reliable gene set
 
@@ -233,18 +217,46 @@ Using the same comparison script [as before](examples/novel_genome?id=comparison
 | Exon Specificity (False Positives) | 88.7 (1,155)    | 92.9 (503)             | 96.43 (120)             | 79.3 (652)            |
 
 
+The full prediction set contains **4,285** genes which exactly match the annotation. At the same time, there are **796** incorrectly predicted gene structures:
+* By keeping genes with any external support, we can remove **436** false predictions at the cost of losing **1,681** correctly predicted genes.
+* In a more conservative set where only genes with full external support are kept, **685** false predictions are removed at the cost of losing **2,965** correct genes.
 
-!! NEW DISCUSSION !!
-
-
-
-
-
-The full prediction set contains **20,085** genes which exactly match the annotation. At the same time, there are **9,720** incorrectly predicted gene structures:
-* By keeping genes with any external support, we can remove **3,244** false predictions at the cost of losing **329** correctly predicted genes.
-* In a more conservative set where only genes with full external support are kept, **8,040** false predictions are removed at the cost of losing **1,607** correct genes.
-
-Similar trade-offs can be observed on the exon-level. For example, (97.9%) exons in the set of fully supported genes are correct. This filtering comes at a price of losing \~16% of correctly predicted exons.
+!> Notice the big difference between this filtering and the one shown in [A. thaliana example](examples/novel_genome?id=selection-of-a-reliable-gene-set). Because the input proteins are quite remote (closest species is from a diferent taxonomic class), many correct predictions (\~40%) do not have any external support.
 
 
+# Annotation of an intron-sparse fungal genome
+
+> **This section is still a work in progress**
+
+## Preparing the test data 
+
+Same (give links to gtf and annot), also no repeat masking
+
+## Gene Prediction
+
+Same steps.
+
+At the first glance, the predictions look...
+
+We need to take a look at the number of predicted introns:
+
+| Method                             | GeneMark-ES     | GeneMark-EP+           |
+|------------------------------------|:----------------|:-----------------------|
+| Gene Sensitivity (True Positives)  | 76.7 (4,589)    | 81.20 ()          |
+| Gene Specificity (False Positives) | 83.9 (879)      | 74.02 ()          |
+| Exon Sensitivity (True Positives)  | 74.2 (4,679)    |  80.67 ()          |
+| Exon Specificity (False Positives) | 80.0 (1,169)    |  64.26 ()          |
+
+
+Both algorithms struggle with the low number of introns. TODO: More discussion
+
+| Method                               | GeneMark-ES     | GeneMark-EP+           |
+|--------------------------------------|:----------------|:-----------------------|
+| Intron Sensitivity (True Positives)  | 14.6 (41)       | 73.93 (207)            |
+| Intron Specificity (False Positives) | 10.8 (339)      | 15.24 (1151)           |
+
+Caused by the low number of introns in the genome.
+
+ES: Learns not BP motif (not enough data)
+EP learns a strong BP motif, overpredicts because there is in fact not many.
 
