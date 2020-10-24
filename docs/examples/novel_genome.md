@@ -62,7 +62,7 @@ Let us assume there is no available RNA-Seq data for our novel genome. In such c
 
 Let us assume that our novel genome is a deeply rooted plant species with no sequenced close relatives. Therefore, we will be using **all Plant proteins** from OrthoDB as a general source of protein sequences.
 
-?> GeneMark-EP+ can utilize even very remotely homologous proteins to improve its predictions.
+?> GeneMark-EP+ can utilize even remotely homologous proteins to improve its predictions.
 
 Download the proteins and concatenate them into a single `.fasta` file:
 
@@ -116,7 +116,7 @@ mkdir ES; cd ES
 gmes_petap.pl --seq ../genome.fasta.masked --ES --soft_mask auto --cores 8
 ```
 
-?> This procedure takes about X minutes on an 8-CPU machine.
+?> This procedure takes \~150 minutes on an 8-CPU machine.
 
 ### Predicting genes with GeneMark-EP+
 
@@ -137,7 +137,7 @@ ProtHint is using GeneMark-ES to initialize the genomic regions for protein sear
 prothint.py genome.fasta.masked proteins.fa  --workdir prothint --geneSeeds ES/genemark.gtf
 ```
 
-?> Protein hints generation with ProtHint is optimized for speed, processing of all the supplied plant proteins takes ~ X minutes on an 8-CPU machine.
+?> Protein hints generation with ProtHint is optimized for speed, processing of all the supplied plant proteins takes \~2 hours on an 8-CPU machine. ProtHint writes a lot of temporary files to disk, slow disk access can slow down the protein mapping.
 
 After running protHint, we can use its results in GeneMark-EP+:
 
@@ -148,7 +148,7 @@ gmes_petap.pl --seq genome.fasta.masked  --EP prothint/prothint.gff --evidence p
 > [!INFO]
 > In the above commands, we used two different ProtHint outputs. `prothint.gff` contains all ProtHint predictions and all of these hints are used by GeneMark-EP+ to improve model training. `evidence.gff` contains a high-confidence subset of `prothint.gff`, these hints are enforced in the final GeneMark-EP+ prediction. Hints in `evidence.gff` pass stringent filtering criteria and [generally have > 95% specificity](examples/novel_genome?id=evaluation-of-prothint-protein-hints).
 
-?> The runtime of GeneMark-EP+ is similar to that of GeneMark-ES, about X minutes on an 8-CPU machine.
+?> The runtime of GeneMark-EP+ is similar to that of GeneMark-ES, about 150 minutes on an 8-CPU machine.
 
 ## Prediction Evaluation
 
