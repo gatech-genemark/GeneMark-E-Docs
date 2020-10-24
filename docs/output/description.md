@@ -4,7 +4,21 @@ All output files are located in the folder from which GeneMark-E* was executed.
 
 ## Gene coordinates
 
-Predicted gene coordinates are outputted to `genemark.gtf`.
+Predicted gene coordinates are outputted to `genemark.gtf` which looks as follows:
+
+```
+Chr1    GeneMark.hmm    exon          14412408    14412758   0   +   .   gene_id "1_g"; transcript_id "1_t";
+Chr1    GeneMark.hmm    start_codon   14412408    14412410   .   +   0   gene_id "1_g"; transcript_id "1_t"; count "1_1";
+Chr1    GeneMark.hmm    CDS           14412408    14412758   .   +   0   gene_id "1_g"; transcript_id "1_t"; cds_type "Single"; count "1_1";
+Chr1    GeneMark.hmm    stop_codon    14412756    14412758   .   +   0   gene_id "1_g"; transcript_id "1_t"; count "1_1";
+Chr1    GeneMark.hmm    exon          14412872    14413141   0   +   .   gene_id "2_g"; transcript_id "2_t";
+Chr1    GeneMark.hmm    start_codon   14412872    14412874   .   +   0   gene_id "2_g"; transcript_id "2_t"; count "1_1";
+Chr1    GeneMark.hmm    CDS           14412872    14413141   .   +   0   gene_id "2_g"; transcript_id "2_t"; cds_type "Initial"; count "1_2";
+Chr1    GeneMark.hmm    intron        14413142    14413482   0   +   0   gene_id "2_g"; transcript_id "2_t"; count "1_1";
+Chr1    GeneMark.hmm    exon          14413483    14413536   0   +   .   gene_id "2_g"; transcript_id "2_t";
+Chr1    GeneMark.hmm    CDS           14413483    14413536   .   +   0   gene_id "2_g"; transcript_id "2_t"; cds_type "Terminal"; count "2_2";
+Chr1    GeneMark.hmm    stop_codon    14413534    14413536   .   +   0   gene_id "2_g"; transcript_id "2_t"; count "1_1";
+```
 
 !> Stop codons are included in the `CDS` for terminal and single exons. 
 
@@ -28,7 +42,7 @@ The outputs are located in `prot_seq.faa` and `nuc_seq.fna` files.
 
 ## Model file
 
-The final model file is outputted to `output/gmhmm.mod`.
+The final model file is saved to `output/gmhmm.mod`.
 
 ## ProtHint output
 
