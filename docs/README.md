@@ -1,8 +1,8 @@
 # GeneMark-ES Suite
 
-Novel genomes can be analyzed by [GeneMark-ES](usage/es.md), an algorithm utilizing models parameterized by unsupervised training. Notably, GeneMark-ES has a special option for fungal genomes to account for fungal-specific intron organization. To integrate into GeneMark-ES information on mapped RNA-Seq reads, we made semi-supervised [GeneMark-ET](usage/et.md). Recently, we have developed [GeneMark-EP+](usage/EP.md) that uses homologous protein sequences of any evolutionary distance in both training and predictions.
-
 This documentation covers installation and usage instructions for algorithms from the GeneMark-E* family. Visit the example section for step-by-step instructions on how to annotate a novel genome.
+
+Novel genomes can be analyzed by [GeneMark-ES](usage/es.md), an algorithm utilizing models parameterized by unsupervised training. Notably, GeneMark-ES has a special option for fungal genomes to account for fungal-specific intron organization. To integrate into GeneMark-ES information on mapped RNA-Seq reads, we made semi-supervised [GeneMark-ET](usage/et.md). Recently, we have developed [GeneMark-EP+](usage/EP.md) that uses homologous protein sequences of any evolutionary distance in both training and predictions.
 
 #### Relevant Publications
 
