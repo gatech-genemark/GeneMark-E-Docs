@@ -13,7 +13,7 @@ We will use Arabidopsis thaliana as an example genome in this tutorial.
 Download the genomic sequence from NCBI:
 
 ```bash
-wget wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/735/GCF_000001735.4_TAIR10.1/GCF_000001735.4_TAIR10.1_genomic.fna.gz
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/735/GCF_000001735.4_TAIR10.1/GCF_000001735.4_TAIR10.1_genomic.fna.gz
 gunzip GCF_000001735.4_TAIR10.1_genomic.fna.gz
 mv GCF_000001735.4_TAIR10.1_genomic.fna genome.fasta
 ```
@@ -33,16 +33,22 @@ Download annotation for result evaluation:
 wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/735/GCF_000001735.4_TAIR10.1/GCF_000001735.4_TAIR10.1_genomic.gff.gz
 gunzip GCF_000001735.4_TAIR10.1_genomic.gff.gz
 mv GCF_000001735.4_TAIR10.1_genomic.gff annotation.gff
-
 ```
 !> Actual novel genomes usually do not have a reference annotation available. In this tutorial, we will also show how to evaluate the results when the reference annotation is not available.
 
 Convert the annotation to `.gtf` format with [GenomeTools](http://genometools.org/):
 
 ```bash
-gt gff3_to_gtf annotation.gff > annotation.gtf
+# 3 genes contain unexpected CDS phases, they need to be removed prior to the conversion
+gt gff3_to_gtf <(grep -P -v "gene-DA397_mgp34|gene-DA397_mgp31|gene-ArthCp047" annotation.gff) > annotation.gtf
 ```
 
+Add introns between CDS features (script `calc_introns_from_gtf` is a part of GeneMark-ES suite): 
+
+```bash
+calc_introns_from_gtf.pl --in annotation.gtf --out introns.gtf
+cat introns.gtf >> annotation.gtf
+```
 
 ## Downloading cross-species proteins
 
@@ -78,7 +84,7 @@ Prior to predicting predicting protein coding genes, it is important to identify
 
 ```bash
 BuildDatabase -name genome genome.fasta
-RepeatModeler -database genome -LTRStruct
+RepeatModeler -database genome -LTRStruct -pa 8
 ```
 
 Use the repeat library to soft-mask repeats with [RepeatMasker](http://www.repeatmasker.org/):
@@ -100,7 +106,8 @@ Please refer to the [installation section](installation/download.md) to get Gene
 We will start by using GeneMark-ES which works with the genomic sequence alone:
 
 ```bash
-gmes_petap.pl --seq genome.fasta.masked --ES --soft_mask auto --cores 8
+mkdir ES; cd ES
+gmes_petap.pl --seq ../genome.fasta.masked --ES --soft_mask auto --cores 8
 ```
 
 ?> This procedure takes about X minutes on an 8-CPU machine.
@@ -178,8 +185,8 @@ compare_intervals_exact.pl --f1 annotation.gtf --f2  ES/genemark.gtf --cds --ver
 The result of GeneMark-EP+, guided by cross-species proteins, can be evaluated with the same commands:
 
 ```bash
-compare_intervals_exact.pl --f1 annotation.gtf --f2  EP/genemark.gtf --gene --verbose
-compare_intervals_exact.pl --f1 annotation.gtf --f2  EP/genemark.gtf --cds --verbose
+compare_intervals_exact.pl --f1 annotation.gtf --f2  genemark.gtf --gene --verbose
+compare_intervals_exact.pl --f1 annotation.gtf --f2  genemark.gtf --cds --verbose
 ```
 
 The results are summarized in the table below:
@@ -201,8 +208,8 @@ About \~5,000 more annotated genes were exactly predicted by GeneMark-EP+ (17.4%
 We can also directly evaluate how reliable the protein hints supplied by ProtHint are, especially in the high-confidence `evidence.gff` file:
 
 ```bash
-compare_intervals_exact.pl --f1 annotation.gtf --f2  prothint.gtf --intron
-compare_intervals_exact.pl --f1 annotation.gtf --f2  evidence.gtf --intron
+compare_intervals_exact.pl --f1 annotation.gtf --f2  prothint.gtf --intron --no_phase
+compare_intervals_exact.pl --f1 annotation.gtf --f2  evidence.gtf --intron --no_phase
 ```
 
 | Method                             | All introns     | High-Confidence           |
@@ -226,7 +233,37 @@ Generally, users have some expectations about the expected number of genes, dist
 
 ### BUSCO Evaluation
 
-> **TODO**
+Without a reference annotation, we can use [BUSCO](evaluation?id=busco-evaluation) to evaluate the completeness of our prediction.
+
+First, we need to select the closest BUSCO lineage. To list available lineage, use:
+
+```bash
+python3 /storage3/braker2-exp/bin/busco/bin/busco --list-datasets
+```
+
+`brassicales_odb10` is the closest available set.
+
+Next, we need to translate the predicted genes to proteins:
+
+```bash
+get_sequence_from_GTF.pl genemark.gtf genome.fasta
+```
+
+To run BUSCO, use:
+
+```bash
+python3 busco -m protein -i prot_seq.faa -o EP_plus -l brassicales_odb10 --cpu 8
+```
+
+Visualize the BUSCO result:
+
+```bash
+python3 generate_plot.py -wd EP_plus
+```
+
+LINK
+
+The result shows that...
 
 ## Selection of a reliable gene set
 
@@ -238,7 +275,7 @@ selectSupportedSubsets.py genemark.gtf --fullSupport fullSupport.gtf --anySuppor
 
 Using the same comparison script [as before](examples/novel_genome?id=comparison-of-genemark-es-and-genemark-ep-results), we can compare the accuracy of the selected subsets:
 
-| GeneMark-EP+ Predictions           | All predictions | Any support | Full support | No support |
+| GeneMark-EP+ Predictions           | All predictions | Any support            | Full support            | No support            |
 |------------------------------------|:----------------|:-----------------------|:------------------------|:----------------------|
 | Gene Sensitivity (True Positives)  | 73.2  (20,085)  | 72.0 (19,756)          | 67.3 (18,477)           | 1.2 (329)             |
 | Gene Specificity (False Positives) | 67.4   (9,720)  | 75.3 (6,476)           | 91.7 (1,680)            | 9.2 (3,244)           |
