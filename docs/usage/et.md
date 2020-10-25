@@ -10,6 +10,8 @@ The mandatory inputs to GeneMark-ET are the genomic sequence and introns aligned
 gmes_petap.pl --seq  genome.fasta.masked --ET rna_introns.gff --soft_mask auto --cores 8
 ```
 
+?> See the [preparing RNA-Seq evidence](usage/preparing_rna.md) page for more details on how to prepare the `rna_introns` input.
+
 The commonly used optional parameters (`--soft_mask auto` and `--cores 8`) are described in the [general info](usage/general.md) section.
 
 ### Adjusting the intron initialization score threshold
