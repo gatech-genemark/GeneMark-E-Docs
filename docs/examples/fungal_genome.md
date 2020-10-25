@@ -58,7 +58,7 @@ Let us assume there is no available RNA-Seq data for our novel genome. In such c
 
 Let us assume that our novel genome is a deeply rooted plant species with no sequenced close relatives. Therefore, we will be using **all Fungal proteins** from OrthoDB as a general source of protein sequences.
 
-?> GeneMark-EP+ can utilize even very remotely homologous proteins to improve its predictions.
+?> GeneMark-EP+ can utilize even remotely homologous proteins to improve its predictions.
 
 Download the proteins and concatenate them into a single `.fasta` file:
 
@@ -99,7 +99,7 @@ gmes_petap.pl --fungus --seq ../genome.fasta --ES --cores 8
 
 !> Notice the `--fungus` flag
 
-?> This procedure takes about X minutes on an 8-CPU machine.
+?> This procedure takes \~20 minutes on an 8-CPU machine.
 
 ### Predicting genes with GeneMark-EP+
 
@@ -109,7 +109,10 @@ Run GeneMark-EP+ with the following command, do not forget the `--fungus` flag:
 gmes_petap.pl --fungus --seq genome.fasta --EP --dbep proteins.fasta --cores 8
 ```
 
-?> See the [example with A. thaliana](novel_genome?id=predicting-genes-with-genemark-ep) for more details about a GeneMark-EP+ run.
+?> The runtime of GeneMark-EP+ \~45 minutes on an 8-CPU machine, including the protein mapping of all fungal proteins.
+
+> [!INFO]
+> See the [example with A. thaliana](novel_genome?id=predicting-genes-with-genemark-ep) for more details about a GeneMark-EP+ run.
 
 
 ## Prediction Evaluation
@@ -124,9 +127,9 @@ Since we have a reference evaluation, we can directly evaluate how accurate the 
 
 #### Comparison of GeneMark-ES and GeneMark-EP+ results
 
-To compare GeneMark-ES and GeneMark-EP+ predictions, we will use the same procedure described in the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation).
+To compare GeneMark-ES and GeneMark-EP+ predictions, we will use procedure described in the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation).
 
-The results are summarized in the table below:
+The accuracy results are summarized in the table below:
 
 | Method                             | GeneMark-ES     | GeneMark-EP+           |
 |------------------------------------|:----------------|:-----------------------|
@@ -136,18 +139,17 @@ The results are summarized in the table below:
 | Exon Specificity (False Positives) | 89.8 (1,016)    | 88.7 (1,155)          |
 
 
-Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the difference in accuracy between GeneMark-ES and GeneMark-EP+ is quite small. The main reason for this difference is that the prediction results of fungal GeneMark-ES are quite accurate and thus difficult to improve.
+Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the difference in accuracy between GeneMark-ES and GeneMark-EP+ is quite small. The main reason for this difference is that the prediction results of fungal GeneMark-ES are quite accurate and thus difficult to improve. Another contributing factor is a relative remoteness of reference proteins (see below).
 
 #### Evaluation of ProtHint protein hints
 
-Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the genome coverage of protein hints (60%) is lower: After removing proteins of species within the same genus, the closest relatives in the reference proteins set were from a **different taxonomic class**. Note that the specificity of high-confidence hint (**98.8%**) is not negatively affected by the remoteness of input proteins.
-
+Compared to the [A. thaliana example](examples/novel_genome?id=evaluation-against-reference-annotation), the sensitivity coverage of protein hints (60%) is lower. The reason for lower sensitivity is as follows: After [artificially removing proteins of species within the same genus](examples/fungal_genome?id=downloading-cross-species-proteins), the closest relatives in the reference proteins set were from a **different taxonomic class**. Note that the specificity of high-confidence hints (**98.8%**) is not negatively affected by the remoteness of input proteins.
 
 
 | ProtHint                             | All introns     | High-Confidence           |
 |------------------------------------|:----------------:|:-----------------------:|
 | Intron Sensitivity  |  60.0  | 40.7 |
-| Intron Specificity  |  75.4  | 98.8 |
+| Intron Specificity  |  75.4  | **98.8** |
 
 
 ### Annotation Report
@@ -197,7 +199,8 @@ python3 generate_plot.py -wd EP_plus
 
 ![S_pombe_busco](busco/spombe.png ':size=700') 
 
-!> **TODO** COMMENT ON THIS. LIMITATION OF BUSCO WITH FUNGI!
+!> Surprisingly, the BUSCO evaluation shows many missing genes (301 out of 1706, 17.6%). BUSCO evaluation of the reference annotation shows a similar proportion of missing genes (16.9%). Therefore, the low BUSCO score might be related to specific properties of the genome itself rather than caused by a low-quality prediction. 
+
 
 ## Selection of a reliable gene set
 
