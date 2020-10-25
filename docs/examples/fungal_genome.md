@@ -229,37 +229,47 @@ The full prediction set contains **4,285** genes which exactly match the annotat
 
 # Annotation of an intron-sparse fungal genome
 
-> **This section is still a work in progress**
+This second fungal demonstration serves to present difficulties associated with annotating intron-sparse genomes such as S. cerevisiae. Out of **5,983** S. cerevisiae protein-coding genes, only **270** contain introns (the total of **280** introns in protein-coding regions).
 
 ## Preparing the test data 
 
-Same (give links to gtf and annot), also no repeat masking
+The genome and annotation were prepared [in the same way as for S. pombe](examples/fungal_genome?id=preparing-the-test-data), using data from NCBI ([GCF_000146045.2_R64_genomic.fna](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/146/045/GCF_000146045.2_R64/GCF_000146045.2_R64_genomic.fna.gz) and [GCF_000146045.2_R64_genomic.gff](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/146/045/GCF_000146045.2_R64/GCF_000146045.2_R64_genomic.gff.gz)).
+
+Reference proteins were also prepared in the same way. For the purpose of this demonstration, we removed proteins of S. cerevisiae itself from the database.
 
 ## Gene Prediction
 
-Same steps.
+Gene prediction steps are identical to the ones shown for [S. pombe](examples/fungal_genome?id=gene-prediction).
 
-At the first glance, the predictions look...
+## Prediction Evaluation
 
-We need to take a look at the number of predicted introns:
+!> The prediction results shown in this tutorial may slightly differ from your own results. In fungal GeneMark, this difference is caused by stochastic nature of branch point motif estimation.
+
+In this example, we will only compare the prediction against the reference annotation to show limitations of both GeneMark-ES and -EP+.
+
+At the first glance, the predictions look OK:
 
 | Method                             | GeneMark-ES     | GeneMark-EP+           |
 |------------------------------------|:----------------|:-----------------------|
-| Gene Sensitivity (True Positives)  | 76.7 (4,589)    | 81.20 ()          |
-| Gene Specificity (False Positives) | 83.9 (879)      | 74.02 ()          |
-| Exon Sensitivity (True Positives)  | 74.2 (4,679)    |  80.67 ()          |
-| Exon Specificity (False Positives) | 80.0 (1,169)    |  64.26 ()          |
+| Gene Sensitivity (True Positives)  | 76.7 (4,589)    | 81.2 (4,858)            |
+| Gene Specificity (False Positives) | 83.9 (879)      | 74.0 (1,705)            |
+| Exon Sensitivity (True Positives)  | 74.2 (4,679)    | 80.7 (5,090)            |
+| Exon Specificity (False Positives) | 80.0 (1,169)    | 64.3 (2,831)            |
 
-
-Both algorithms struggle with the low number of introns. TODO: More discussion
+However, comparing the predicted introns with annotation shows a problem:
 
 | Method                               | GeneMark-ES     | GeneMark-EP+           |
 |--------------------------------------|:----------------|:-----------------------|
-| Intron Sensitivity (True Positives)  | 14.6 (41)       | 73.93 (207)            |
-| Intron Specificity (False Positives) | 10.8 (339)      | 15.24 (1151)           |
+| Intron Sensitivity (True Positives)  | 14.6 (41)       | 73.9 (207)            |
+| Intron Specificity (False Positives) | 10.8 (339)      | 15.2 (1,151)           |
 
-Caused by the low number of introns in the genome.
+* **GeneMark-ES** predicts only **41** (14.6%) of annotated introns.
+* **GeneMark-EP+** predicts many more, **207** (73.9%), annotated introns. However, this comes at a cost of generating a significant number of false positive introns (**1,151**), which in turn create many false positive gene predictions.
 
-ES: Learns not BP motif (not enough data)
-EP learns a strong BP motif, overpredicts because there is in fact not many.
+The reasons for the sub-optimal intron predictions are:
 
+* **GeneMark-ES**: Due to the low number of introns, the self-training procedure of unsupervised GeneMark-ES does not converge to any strong branch point motif. As a result, almost no introns are predicted.
+* **GeneMark-EP+**: With the additional protein information, GeneMark-EP+ correctly estimates S. cerevisiae's branch point motif. However, it over-estimates the weight of the branch point and starts predicting introns in intergenic regions which show any similarity to its motif.
+* **Short initial exons**: The majority of annotated introns are located close to the protein coding gene start, i.e., the initial coding exons are shorter than in other genomes (\~25% of initial exons are shorter than 15 nucleotides). This presents a challenge for spliced alignment of reference proteins -- alignments resulting in short exons are usually false and thus filtered out. Consequently, protein mapping completely misses a large group of initial exons and associated introns
+
+!> We are currently working on a new version of fungal GeneMark which will automatically detect intron-sparse genomes and address all of the described problems. Current version will fail to accurately predict multi-exon genes in intron-sparse genomes.
