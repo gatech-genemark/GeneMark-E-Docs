@@ -13,6 +13,7 @@
     * [Preparing protein evidence](usage/preparing_proteins.md)
     * [Preparing RNA-Seq evidence](usage/preparing_rna.md)
     * [BRAKER](usage/braker.md)
+    * [Common issues](usage/common_issues.md)
 * Output
     * [Output description](output/description.md)
     * [Output evaluation](output/evaluation.md)
