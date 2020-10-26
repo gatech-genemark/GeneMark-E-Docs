@@ -18,10 +18,10 @@ cp gm_key ~/.gm_key
 Install required Perl modules, for example with `cpan`
 
 ```bash
-cpan YAML Hash::Merge Logger::Simple Parallel::ForkManager MCE::Mutex Thread::Queue threads
+cpan YAML Hash::Merge Logger::Simple Parallel::ForkManager MCE::Mutex Thread::Queue threads Math::Utils
 ```
 
-?> See the `INSTALL` file for alternative ways to install Perl modules.
+!> You need to have `make` installed (for example with `sudo apt-get install build-essential` on Debian-based Linux) before installing the Perl modules . See the `INSTALL` file for alternative ways to install Perl modules.
 
 Add GeneMark-ES Suite directory to your `PATH`, to make it available anywhere on the machine:
 
