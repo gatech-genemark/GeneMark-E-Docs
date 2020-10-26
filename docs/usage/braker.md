@@ -2,7 +2,7 @@
 
 BRAKER is a pipeline for fully automated prediction of protein coding gene structures with GeneMark-ES/ET/EP+ and AUGUSTUS in novel eukaryotic genomes.
 
-Initially developed **BRAKER1** [[1](https://academic.oup.com/bioinformatics/article/32/5/767/1744611)] combines strengths of GeneMark-ET and AUGUSTUS to automatically generate full gene structure annotations in novel eukaryotic genomes.
+Initially developed **BRAKER1** [[1](https://academic.oup.com/bioinformatics/article/32/5/767/1744611)] combines strengths of GeneMark-ET and AUGUSTUS to automatically generate full gene structure annotations in novel eukaryotic genomes. The main characteristics of both algorithms are:
 
 **GeneMark-ET**
 

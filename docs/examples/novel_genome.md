@@ -273,7 +273,7 @@ python3 generate_plot.py -wd EP_plus
 
 ![A_thaliana_busco](busco/athal.png ':size=700') 
 
-The BUSCO result shows that 4534 out of 4596 (98.7%) expected BUSCO genes were completely found in the prediction. 9 genes were found partially and 53 (1.1%) were missing.
+The BUSCO result shows that 4534 out of 4596 (**98.7%**) expected BUSCO genes were completely found in the prediction. 9 genes were found partially and 53 (**1.1%**) were missing. Again, this is a clear improvement over [the results achieved with GeneMark-EP+ alone](examples/novel_genome?id=busco-evaluation).
 
 ## Selection of a reliable gene set
 
@@ -287,7 +287,7 @@ Using the same comparison script [as before](examples/novel_genome?id=comparison
 
 | GeneMark-EP+ Predictions           | All predictions | Any support            | Full support            | No support            |
 |------------------------------------|:----------------|:-----------------------|:------------------------|:----------------------|
-| Gene Sensitivity (True Positives)  | 72.3 (19,910)   | 71.1 (19,596)          | 66.6 (18,357)           | 1.1  (314)          |
+| Gene Sensitivity (True Positives)  | 72.3 (19,910)   | 71.1 (19,596)          | 66.6 (18,357)           | 1.1  (314)            |
 | Gene Specificity (False Positives) | 69.5 (8,755)    | 76.6 (6,002)           | 91.8 (1,630)            | 10.2 (2,753)          |
 | Exon Sensitivity (True Positives)  | 81.2 (127,452)  | 80.2 (125,846)         | 68.5 (107,475)          | 1.0  (1,606)          |
 | Exon Specificity (False Positives) | 84.7 (22,956)   | 89.3 (15,087)          | 98.0 (2,191)            | 17.0 (7,869)          |
