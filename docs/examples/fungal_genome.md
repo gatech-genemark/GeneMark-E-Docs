@@ -268,8 +268,8 @@ However, comparing the predicted introns with annotation shows a problem:
 
 The reasons for the sub-optimal intron predictions are:
 
-* **GeneMark-ES**: Due to the low number of introns, the self-training procedure of unsupervised GeneMark-ES does not converge to any strong branch point motif. As a result, almost no introns are predicted.
-* **GeneMark-EP+**: With the additional protein information, GeneMark-EP+ correctly estimates S. cerevisiae's branch point motif. However, it over-estimates the weight of the branch point and starts predicting introns in intergenic regions which show any similarity to its motif.
+* **GeneMark-ES**: Due to the low number of introns, the self-training procedure of unsupervised GeneMark-ES [does not converge to any strong branch point motif](output/reports/sc_es.pdf ':ignore'). As a result, almost no introns are predicted.
+* **GeneMark-EP+**: With the additional protein information, GeneMark-EP+ [correctly estimates S. cerevisiae's branch point motif](output/reports/sc_ep.pdf ':ignore'). However, it over-estimates the weight of the branch point and starts predicting introns in intergenic regions which show any similarity to its motif.
 * **Short initial exons**: The majority of annotated introns are located close to the protein coding gene start, i.e., the initial coding exons are shorter than in other genomes (\~25% of initial exons are shorter than 15 nucleotides). This presents a challenge for spliced alignment of reference proteins -- alignments resulting in short exons are usually false and thus filtered out. Consequently, protein mapping completely misses a large group of initial exons and associated introns
 
 !> We are currently working on a new version of fungal GeneMark which will automatically detect intron-sparse genomes and address all of the described problems. Current version will fail to accurately predict multi-exon genes in intron-sparse genomes.
