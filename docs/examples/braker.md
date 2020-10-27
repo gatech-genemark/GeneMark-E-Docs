@@ -54,9 +54,6 @@ braker.pl --genome ../genome.fasta.masked --hints prothint/prothint_augustus.gff
 
 BRAKER can also be run directly with protein sequences: just replace the `--hints prothint/prothint_augustus.gff` option with `--prot_seq proteins.fasta`.
 
-
-!> DONE UP UNTIL HERE
-
 ## Prediction Evaluation
 
 !> The prediction results shown in this tutorial may slightly differ from your own results. This difference is caused by stochasticity of repeat masking, i.e. two different run for RepeatMasker/RepeatModeler can produce slightly different masking coordinates.
