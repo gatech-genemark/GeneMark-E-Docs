@@ -232,7 +232,7 @@ We can see that ProtHint predicted a significant portion of all annotated intron
 Without a reference annotation, the prediction has to be evaluated on its own. To visualize various summary statistics about the predicted gene set, [run the following script](output/evaluation?id=prediction-report):
 
 ```bash
-./predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
+predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
 ```
 
 The resulting report [is saved here](output/reports/athal.pdf ':ignore').

@@ -5,7 +5,7 @@
 To get summary statistics about the predicted gene set and trained model, run the following script:
 
 ```bash
-./predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
+predictionReport.py genemark.gtf output/gmhmm.mod report.pdf
 ```
 
 !> The script is not called in the course of a standard GeneMark run because it depends on additional Python dependencies. The following [Python modules](https://docs.python.org/3/installing/index.html) are required: [`numpy`](https://numpy.org/), [`pandas`](https://pandas.pydata.org/), [`matplotlib`](https://matplotlib.org/), [`logomaker`](https://logomaker.readthedocs.io/en/latest/). All modules can be installed with pip: `pip3 install numpy pandas matplotlib logomaker`
