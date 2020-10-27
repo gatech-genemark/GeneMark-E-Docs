@@ -8,7 +8,7 @@ As in the previous example, we will be using the genome of A. thaliana. See the 
 
 ### RNA-Seq
 
-Here we will also illustrate how to prepare RNA-Seq data for BRAKER. See the [usage page for more details about RNA-Seq mapping](http://localhost:3000/#/usage/preparing_rna).
+Here we will also illustrate how to prepare RNA-Seq data for BRAKER. See the [usage page for more details about RNA-Seq mapping](usage/preparing_rna).
 
 Download a species-specific RNA-Seq library from the Sequence Read Archive with [SRA Toolkit](https://github.com/ncbi/sra-tools):
 
